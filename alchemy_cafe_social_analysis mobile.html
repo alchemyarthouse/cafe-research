@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Café Social Media — Alchemy ArtHouse Research</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0a0a09;
+    --surface: #111110;
+    --surface2: #181816;
+    --tile: #F2F2F0;
+    --border: #222220;
+    --border-light: #2e2e2b;
+    --text: #F2F2F0;
+    --text-dim: #8a8880;
+    --text-dark: #0a0a09;
+    --orange: #E8520A;
+    --orange-dim: rgba(232,82,10,0.12);
+    --orange-mid: rgba(232,82,10,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---- HEADER ---- */
+  .site-header {
+    padding: 20px 48px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .wordmark {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  .wordmark span {
+    color: var(--orange);
+  }
+
+  .header-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  /* ---- HERO ---- */
+  .hero {
+    padding: 64px 48px 48px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '✦';
+    position: absolute;
+    bottom: 32px;
+    right: 48px;
+    font-size: 14px;
+    color: var(--border-light);
+    letter-spacing: 0.3em;
+  }
+
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 1px;
+    background: var(--orange);
+  }
+
+  h1 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(30px, 4.5vw, 52px);
+    font-weight: 300;
+    line-height: 1.08;
+    color: var(--text);
+    max-width: 680px;
+    letter-spacing: -0.02em;
+  }
+
+  h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--orange);
+  }
+
+  .hero-meta {
+    margin-top: 32px;
+    display: flex;
+    gap: 0;
+    border-top: 1px solid var(--border);
+    padding-top: 28px;
+    flex-wrap: wrap;
+  }
+
+  .hero-stat {
+    padding-right: 40px;
+    margin-right: 40px;
+    border-right: 1px solid var(--border);
+  }
+
+  .hero-stat:last-child {
+    border-right: none;
+  }
+
+  .hero-stat-val {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .hero-stat-val em {
+    font-style: italic;
+    color: var(--orange);
+  }
+
+  .hero-stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  /* ---- TABS ---- */
+  .tab-bar {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tab-bar::-webkit-scrollbar { display: none; }
+
+  .tab {
+    padding: 18px 32px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    border-right: 1px solid var(--border);
+    white-space: nowrap;
+    transition: color 0.2s ease, border-color 0.2s ease;
+    user-select: none;
+  }
+
+  .tab:hover { color: var(--text); }
+
+  .tab.active {
+    color: var(--orange);
+    border-bottom-color: var(--orange);
+  }
+
+  /* ---- PANELS ---- */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* ---- BRAND HEADER ---- */
+  .brand-header {
+    padding: 48px 48px 36px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px;
+    align-items: start;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .brand-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .brand-num::before {
+    content: '';
+    width: 16px;
+    height: 1px;
+    background: var(--orange);
+  }
+
+  .brand-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(22px, 3.5vw, 40px);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+
+  .brand-tagline {
+    margin-top: 12px;
+    font-size: 13.5px;
+    color: var(--text-dim);
+    font-weight: 300;
+    max-width: 520px;
+    line-height: 1.65;
+  }
+
+  .brand-badges {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-end;
+  }
+
+  .badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border: 1px solid var(--border-light);
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+
+  /* ---- STATS STRIP ---- */
+  .stats-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stat-cell {
+    padding: 24px 32px;
+    border-right: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .stat-cell:last-child { border-right: none; }
+  @media (min-width: 641px) {
+    .stats-strip .stat-cell { border-bottom: none; }
+  }
+
+  .stat-value {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--orange);
+    letter-spacing: -0.02em;
+    margin-bottom: 5px;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  /* ---- CONTENT GRID ---- */
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .content-block {
+    padding: 36px 40px;
+    border-right: 1px solid var(--border);
+  }
+
+  .content-block:nth-child(even) { border-right: none; }
+  .content-block:nth-child(n+3) { border-top: 1px solid var(--border); }
+
+  .block-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .block-eyebrow::before {
+    content: '';
+    width: 12px;
+    height: 1px;
+    background: var(--orange);
+    flex-shrink: 0;
+  }
+
+  .block-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 17px;
+    font-weight: 500;
+    margin-bottom: 14px;
+    line-height: 1.3;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+
+  .block-body {
+    font-size: 13.5px;
+    color: #a8a49e;
+    line-height: 1.78;
+    font-weight: 300;
+  }
+
+  .block-body strong {
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  .tag-list {
+    margin-top: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    background: var(--surface2);
+    border: 1px solid var(--border-light);
+    color: var(--text-dim);
+  }
+
+  /* ---- INSIGHT BLOCK ---- */
+  .insight-block {
+    padding: 40px 48px;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 3px 1fr;
+    gap: 32px;
+    align-items: start;
+    background: var(--surface);
+  }
+
+  .il {
+    width: 3px;
+    min-height: 40px;
+    background: var(--orange);
+    margin-top: 4px;
+  }
+
+  .insight-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(15px, 2.2vw, 20px);
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.55;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+
+  .insight-source {
+    margin-top: 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  /* ---- CHANNEL BARS ---- */
+  .cbar-label {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+  }
+
+  .cbar-track {
+    height: 2px;
+    background: var(--border-light);
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+
+  .cbar-fill {
+    height: 100%;
+    background: var(--orange);
+  }
+
+  /* ---- PLAYBOOK ---- */
+  .playbook-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .playbook-item {
+    padding: 40px;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+
+  .playbook-item:nth-child(3n) { border-right: none; }
+  .playbook-item:nth-child(n+4) { border-top: 1px solid var(--border); }
+
+  .playbook-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: var(--orange);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .playbook-num::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border-light);
+  }
+
+  .playbook-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 14px;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+
+  .playbook-body {
+    font-size: 13px;
+    color: #908c86;
+    line-height: 1.78;
+    font-weight: 300;
+  }
+
+  .playbook-body strong { color: var(--text); font-weight: 400; }
+
+  /* ---- VERDICT ---- */
+  .verdict-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background: var(--surface);
+  }
+
+  .verdict-cell {
+    padding: 36px 40px;
+    border-right: 1px solid var(--border);
+  }
+
+  .verdict-cell:last-child { border-right: none; }
+
+  .verdict-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+  }
+
+  .verdict-score {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 32px;
+    font-weight: 300;
+    line-height: 1;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+    color: var(--orange);
+  }
+
+  .verdict-desc {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* ---- FOOTER ---- */
+  .footer-note {
+    padding: 24px 48px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--text-dim);
+    letter-spacing: 0.08em;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .footer-glyph {
+    color: var(--orange);
+    opacity: 0.5;
+  }
+
+  /* ---- ANIMATIONS ---- */
+  .panel.active .anim {
+    animation: fadeUp 0.35s ease forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---- TABLET ---- */
+  @media (max-width: 900px) {
+    .playbook-grid { grid-template-columns: 1fr 1fr; }
+    .playbook-item:nth-child(3n) { border-right: 1px solid var(--border); }
+    .playbook-item:nth-child(2n) { border-right: none; }
+    .playbook-item:nth-child(n+3) { border-top: 1px solid var(--border); }
+    .verdict-row { grid-template-columns: 1fr; }
+    .verdict-cell { border-right: none; border-bottom: 1px solid var(--border); }
+    .verdict-cell:last-child { border-bottom: none; }
+  }
+
+  /* ---- MOBILE ---- */
+  @media (max-width: 640px) {
+    /* Header */
+    .site-header {
+      padding: 14px 20px;
+    }
+    .header-tag { display: none; }
+    .wordmark { font-size: 10px; letter-spacing: 0.18em; }
+
+    /* Hero */
+    .hero {
+      padding: 36px 20px 32px;
+    }
+    .hero::after { display: none; }
+    h1 {
+      font-size: 28px;
+      letter-spacing: -0.02em;
+    }
+    .hero-meta {
+      margin-top: 24px;
+      padding-top: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    .hero-stat {
+      padding: 16px 0;
+      margin: 0;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-stat:nth-child(odd) {
+      padding-right: 16px;
+      border-right: 1px solid var(--border);
+    }
+    .hero-stat:nth-child(3),
+    .hero-stat:nth-child(4) {
+      border-bottom: none;
+    }
+    .hero-stat-val { font-size: 22px; }
+
+    /* Tabs — scrollable pill row */
+    .tab-bar {
+      padding: 0;
+      gap: 0;
+    }
+    .tab {
+      padding: 14px 18px;
+      font-size: 8px;
+      letter-spacing: 0.14em;
+      flex-shrink: 0;
+    }
+
+    /* Brand header */
+    .brand-header {
+      padding: 28px 20px 24px;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .brand-badges {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    .brand-title { font-size: 26px; }
+    .brand-tagline { font-size: 13px; }
+
+    /* Stats strip — 2 col */
+    .stats-strip {
+      grid-template-columns: 1fr 1fr;
+    }
+    .stat-cell {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .stat-cell:nth-child(2n) { border-right: none; }
+    .stat-cell:nth-last-child(-n+2) { border-bottom: none; }
+    .stat-value { font-size: 22px; }
+
+    /* Content grid — single column */
+    .content-grid {
+      grid-template-columns: 1fr;
+    }
+    .content-block {
+      padding: 24px 20px;
+      border-right: none !important;
+      border-bottom: 1px solid var(--border);
+    }
+    .content-block:last-child { border-bottom: none; }
+    .content-block:nth-child(n+3) { border-top: none; }
+    .block-title { font-size: 16px; }
+    .block-body { font-size: 13px; line-height: 1.72; }
+
+    /* Insight block */
+    .insight-block {
+      padding: 28px 20px;
+      gap: 20px;
+    }
+    .insight-text { font-size: 16px; }
+
+    /* Playbook — single column */
+    .playbook-grid {
+      grid-template-columns: 1fr;
+    }
+    .playbook-item {
+      padding: 28px 20px;
+      border-right: none !important;
+      border-bottom: 1px solid var(--border);
+    }
+    .playbook-item:last-child { border-bottom: none; }
+    .playbook-item:nth-child(n+3) { border-top: none; }
+    .playbook-title { font-size: 17px; }
+
+    /* Verdict — single column */
+    .verdict-row {
+      grid-template-columns: 1fr;
+    }
+    .verdict-cell {
+      padding: 24px 20px;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+    }
+    .verdict-cell:last-child { border-bottom: none; }
+    .verdict-score { font-size: 26px; }
+
+    /* Footer */
+    .footer-note {
+      padding: 18px 20px;
+      font-size: 8px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .footer-glyph { align-self: flex-end; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="wordmark">Alchemy <span>✦</span> ArtHouse</div>
+  <div class="header-tag">Internal Research · Hospitality</div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="eyebrow">Deep Research Report · April 2026</div>
+  <h1>Three Cafés<br><em>Owning</em> Social Right Now</h1>
+  <div class="hero-meta">
+    <div class="hero-stat">
+      <div class="hero-stat-val"><em>3</em></div>
+      <div class="hero-stat-label">Brands analysed</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-val">7M+</div>
+      <div class="hero-stat-label">Combined creator reach</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-val">480+</div>
+      <div class="hero-stat-label">Global ripple shops</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-val">$0</div>
+      <div class="hero-stat-label">Ad spend (case study 3)</div>
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tab-bar">
+  <div class="tab active" onclick="show('onyx',this)">01 · Onyx Coffee Lab</div>
+  <div class="tab" onclick="show('blank',this)">02 · Blank Street</div>
+  <div class="tab" onclick="show('little',this)">03 · Little Joy</div>
+  <div class="tab" onclick="show('playbook',this)">The Playbook</div>
+</div>
+
+<!-- ===== ONYX ===== -->
+<div class="panel active" id="panel-onyx">
+  <div class="brand-header anim">
+    <div>
+      <div class="brand-num">01 · Arkansas, USA · Specialty Roastery &amp; Café</div>
+      <div class="brand-title">Onyx Coffee Lab</div>
+      <div class="brand-tagline">The brand that turned barista competition into a content engine — and hired a 7-million-follower creator as their in-house marketing department.</div>
+    </div>
+    <div class="brand-badges">
+      <div class="badge">Education-First</div>
+      <div class="badge">Creator-Led</div>
+      <div class="badge">Community Anchor</div>
+    </div>
+  </div>
+
+  <div class="stats-strip">
+    <div class="stat-cell anim"><div class="stat-value">7M+</div><div class="stat-label">Morgan's combined reach</div></div>
+    <div class="stat-cell anim"><div class="stat-value">1M</div><div class="stat-label">Instagram (Morgan)</div></div>
+    <div class="stat-cell anim"><div class="stat-value">6M+</div><div class="stat-label">TikTok (Morgan)</div></div>
+    <div class="stat-cell anim"><div class="stat-value">JBA</div><div class="stat-label">James Beard semi-finalist 2026</div></div>
+  </div>
+
+  <div class="content-grid">
+    <div class="content-block anim">
+      <div class="block-eyebrow">What they post</div>
+      <div class="block-title">Education as Entertainment</div>
+      <div class="block-body">Onyx's strategy runs on <strong>"drink build" videos</strong> — specialty drinks made step by step, exact ingredients included, so viewers can replicate them at home using Onyx beans. Every coffee they sell ships with a tailored brew video. They also produce <strong>bilingual brew guides</strong>, behind-the-scenes roastery content, and recipe tutorials that feel like cooking shows, not ads. Make something visually compelling. Give away the how-to. Let the product be the gateway.</div>
+      <div class="tag-list"><span class="tag">Drink Builds</span><span class="tag">Brew Guides</span><span class="tag">BTS Content</span><span class="tag">Bilingual</span></div>
+    </div>
+    <div class="content-block anim">
+      <div class="block-eyebrow">Who they're talking to</div>
+      <div class="block-title">Specialty Coffee. Cultural Crossover.</div>
+      <div class="block-body">Core: specialty coffee enthusiasts, baristas, home brewers. Extended: through Morgan Eckroth (@MorganDrinksCoffee), they reach <strong>a far broader demographic</strong> — the parent watching on YouTube while the teen follows TikTok, neither knowing the other is a fan. Morgan's stated mission: content <strong>"for people outside specialty coffee."</strong> Collabs with NBA star Jimmy Butler extend the cultural stretch even further.</div>
+      <div class="tag-list"><span class="tag">Specialty Coffee</span><span class="tag">Home Brewers</span><span class="tag">Cross-Cultural</span><span class="tag">Gen Z + Millennials</span></div>
+    </div>
+    <div class="content-block anim">
+      <div class="block-eyebrow">The infrastructure</div>
+      <div class="block-title">In-House Creator as Strategy</div>
+      <div class="block-body">The masterstroke: Onyx hired Morgan Eckroth as their <strong>Content Marketing Specialist</strong> after she became the 2022 US Barista Champion — which Onyx sponsored. She's not an external influencer on retainer. She's embedded. Competes under the Onyx banner. Builds visual identity from the inside. There's no "sponsored content" awkwardness because she's <strong>actually a barista who actually works there.</strong> That gap — between performing authenticity and simply being authentic — is everything.</div>
+      <div class="tag-list"><span class="tag">In-House Creator</span><span class="tag">Championship Sponsorship</span><span class="tag">Authentic Integration</span></div>
+    </div>
+    <div class="content-block anim">
+      <div class="block-eyebrow">Digital vs Organic vs Events</div>
+      <div class="block-title">Organic-First. Competition as Live Event.</div>
+      <div class="block-body">Minimal paid media. Instead: investment in barista competitions as live events with built-in media. Morgan livestreamed her preparation, shared competition routines publicly (breaking industry norms), and documented the World Barista Championship journey in real time. Serialised, episodic content audiences followed like a sports season. <strong>The competition circuit becomes the event calendar.</strong> High-drama. Globally watched. Zero ad spend.</div>
+      <div class="tag-list"><span class="tag">Organic-First</span><span class="tag">Live Events</span><span class="tag">Serialised Content</span><span class="tag">No Gatekeeping</span></div>
+    </div>
+  </div>
+
+  <div class="insight-block anim">
+    <div class="il"></div>
+    <div>
+      <div class="insight-text">"You can give away insight into how you create your product, and it will increase demand for your product. Because no one wants to do the work of doing it themselves. But they like that you're telling them."</div>
+      <div class="insight-source">Niki Weegens · Creative Director, Onyx Coffee Lab</div>
+    </div>
+  </div>
+
+  <div class="content-grid">
+    <div class="content-block anim">
+      <div class="block-eyebrow">Platform strategy</div>
+      <div class="block-title">Full-Stack. Platform-Native.</div>
+      <div class="block-body"><strong>TikTok:</strong> comedy, barista life, quick hits. <strong>YouTube:</strong> long-form education, competition prep series. <strong>Instagram:</strong> visual identity, product storytelling. They don't cross-post — each platform gets content designed for how that audience actually consumes. Different generations find them through different doors. Same brand. Different entry points.</div>
+      <div style="margin-top:18px">
+        <div class="cbar-label"><span>TikTok</span><span>Primary growth engine</span></div>
+        <div class="cbar-track"><div class="cbar-fill" style="width:92%"></div></div>
+        <div class="cbar-label"><span>YouTube</span><span>Education + depth</span></div>
+        <div class="cbar-track"><div class="cbar-fill" style="width:80%"></div></div>
+        <div class="cbar-label"><span>Instagram</span><span>Brand + community</span></div>
+        <div class="cbar-track"><div class="cbar-fill" style="width:72%"></div></div>
+      </div>
+    </div>
+    <div class="content-block anim">
+      <div class="block-eyebrow">Why it works</div>
+      <div class="block-title">The Formula That Can't Be Faked</div>
+      <div class="block-body">Morgan is an actual champion. Niki Weegens spent years building the brand voice from scratch. The content feels like it comes from <strong>genuine obsession</strong> because it does. Audiences smell the difference between a brand performing authenticity and one that simply is authentic. Onyx is the latter — and it compounds. Every competition result, every recipe shared, every bilingual brew guide reinforces the same promise. Years in the making. Almost impossible to replicate quickly.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== BLANK STREET ===== -->
+<div class="panel" id="panel-blank">
+  <div class="brand-header anim">
+    <div>
+      <div class="brand-num">02 · New York / London · Coffee &amp; Matcha Chain</div>
+      <div class="brand-title">Blank Street Coffee</div>
+      <div class="brand-tagline">The brand that turned "cool girl accessory" into a $20M company by making their cup the main character — and every physical store a social media set.</div>
+    </div>
+    <div class="brand-badges">
+      <div class="badge">Celebrity Collabs</div>
+      <div class="badge">IRL as Content</div>
+      <div class="badge">Gen Z Lifestyle Brand</div>
+    </div>
+  </div>
+
+  <div class="stats-strip">
+    <div class="stat-cell anim"><div class="stat-value">70+</div><div class="stat-label">Locations US &amp; UK</div></div>
+    <div class="stat-cell anim"><div class="stat-value">5,000</div><div class="stat-label">Regulars members (4K waitlisted)</div></div>
+    <div class="stat-cell anim"><div class="stat-value">$20M</div><div class="stat-label">Investment raised May 2025</div></div>
+    <div class="stat-cell anim"><div class="stat-value">3×</div><div class="stat-label">Company profit growth Oct 2025</div></div>
+  </div>
+
+  <div class="content-grid">
+    <div class="content-block anim">
+      <div class="block-eyebrow">What they post</div>
+      <div class="block-title">The Drop. The Collab. The Moment.</div>
+      <div class="block-body">Blank Street's feed is a mix of <strong>product launches, celebrity moments, and amplified UGC.</strong> Their matcha drinks — shot in the brand's signature green palette — dominate visually. Seasonal launches come with full campaigns. Merch drops (matcha-green nail wraps, candles, Stanley collab bottles) are packaged as events worth posting about. The drinks themselves are engineered to be photogenic. <strong>The cup is the billboard.</strong></div>
+      <div class="tag-list"><span class="tag">Seasonal Drops</span><span class="tag">Merch Content</span><span class="tag">Product Aesthetic</span><span class="tag">UGC Amplification</span></div>
+    </div>
+    <div class="content-block anim">
+      <div class="block-eyebrow">Who they're talking to</div>
+      <div class="block-title">The Cool Girl. The Conscious Urban Consumer.</div>
+      <div class="block-body">Gen Z women in metro areas who see a Blank Street matcha as a lifestyle signal. The "matcha pilates princess" identity is not an accident — it's a precise target. But they also run <strong>hyperlocal campaigns per neighbourhood:</strong> opening in Brookline, Boston? Activate local creators with Brookline-specific audiences. Not broad lifestyle accounts. They know their audience at street level — who's coming for the vibe versus the caffeine.</div>
+      <div class="tag-list"><span class="tag">Gen Z Women</span><span class="tag">Metro Urban</span><span class="tag">Hyperlocal Targeting</span><span class="tag">Lifestyle Identity</span></div>
+    </div>
+    <div class="content-block anim">
+      <div class="block-eyebrow">The infrastructure</div>
+      <div class="block-title">Celebrity × Micro-Influencer Two-Tier Stack</div>
+      <div class="block-body">Top tier: celebrity collabs generating national media moments. Sabrina Carpenter "working late" as a barista at their London store in 2024 went viral globally — timed to the popularity of "Espresso." Stormzy's best friend ran in-store meet-and-greets that sold out drinks. Base tier: <strong>hyperlocal micro-creators for every new location opening.</strong> Brand partnerships: Emma Chamberlain Coffee, Kendall Jenner's 818 Tequila, Supergoop, Stanley. Not random. All lifestyle-adjacent.</div>
+      <div class="tag-list"><span class="tag">Celebrity Collabs</span><span class="tag">Micro-Influencers</span><span class="tag">Brand Partnerships</span><span class="tag">Pop-Up Events</span></div>
+    </div>
+    <div class="content-block anim">
+      <div class="block-eyebrow">Digital vs Organic vs Events</div>
+      <div class="block-title">IRL Is the Media Strategy.</div>
+      <div class="block-body">Physical stores <strong>function as content studios.</strong> Every opening is a media event. Every celebrity visit is staged for social. Their "Regulars" subscription (5,000 members, 4,000 waitlisted) creates a built-in audience that posts organically. The app drives habitual visits — members come 6× per week versus 2-3× without it. More visits. More UGC. <strong>Waitlisted access makes joining feel like getting into something.</strong></div>
+      <div class="tag-list"><span class="tag">Store-as-Stage</span><span class="tag">Membership Scarcity</span><span class="tag">App-Driven Habits</span><span class="tag">Earned UGC</span></div>
+    </div>
+  </div>
+
+  <div class="insight-block anim">
+    <div class="il"></div>
+    <div>
+      <div class="insight-text">"We know our audience — what makes them tick, what they are reading, where they are shopping, and who they are following on social media. We love tapping into our established community with influential talent and like-minded brands that organically live and breathe the Blank Street lifestyle."</div>
+      <div class="insight-source">Vinay Menda · Co-founder, Blank Street Coffee</div>
+    </div>
+  </div>
+
+  <div class="content-grid">
+    <div class="content-block anim">
+      <div class="block-eyebrow">Platform strategy</div>
+      <div class="block-title">Instagram-Led. TikTok as the Detonator.</div>
+      <div class="block-body"><strong>Instagram</strong> is the brand home: aesthetics, product photography, stories. <strong>TikTok</strong> handles viral moments and celebrity content. Their brand is visual-identity-first — that suits Instagram's permanence. But when Sabrina Carpenter happened, TikTok amplified it globally overnight. The lesson: maintain your home base aesthetically. Use TikTok as the detonator for moments.</div>
+      <div style="margin-top:18px">
+        <div class="cbar-label"><span>Instagram</span><span>Home base</span></div>
+        <div class="cbar-track"><div class="cbar-fill" style="width:90%"></div></div>
+        <div class="cbar-label"><span>TikTok</span><span>Viral detonator</span></div>
+        <div class="cbar-track"><div class="cbar-fill" style="width:70%"></div></div>
+        <div class="cbar-label"><span>App + Email</span><span>Owned loyalty layer</span></div>
+        <div class="cbar-track"><div class="cbar-fill" style="width:85%"></div></div>
+      </div>
+    </div>
+    <div class="content-block anim">
+      <div class="block-eyebrow">Why it works</div>
+      <div class="block-title">Selling Identity. Not Coffee.</div>
+      <div class="block-body">Blank Street sells a version of yourself. Their cups are green. Their collabs are green. Their merch is green. Carrying one communicates something about who you are. This is <strong>product-as-social-signal at scale.</strong> The Sabrina Carpenter moment isn't just a reach play — it's a cultural alignment that tells young women "this brand exists in the same world as the things you love." That's almost impossible to buy with ads alone.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== LITTLE JOY ===== -->
+<div class="panel" id="panel-little">
+  <div class="brand-header anim">
+    <div>
+      <div class="brand-num">03 · Northfield, Minnesota · Independent Café</div>
+      <div class="brand-title">Little Joy Coffee</div>
+      <div class="brand-tagline">The tiny café in a town of 20,000 that gave away its best recipe and accidentally became a global movement. Zero paid media. Zero agency. One honest video.</div>
+    </div>
+    <div class="brand-badges">
+      <div class="badge">Zero Paid Media</div>
+      <div class="badge">Radical Transparency</div>
+      <div class="badge">Generosity Strategy</div>
+    </div>
+  </div>
+
+  <div class="stats-strip">
+    <div class="stat-cell anim"><div class="stat-value">139K</div><div class="stat-label">Instagram followers</div></div>
+    <div class="stat-cell anim"><div class="stat-value">480+</div><div class="stat-label">Shops in 41 countries</div></div>
+    <div class="stat-cell anim"><div class="stat-value">3.3M</div><div class="stat-label">Recipe map views</div></div>
+    <div class="stat-cell anim"><div class="stat-value">3,000</div><div class="stat-label">Lattes sold in one month</div></div>
+  </div>
+
+  <div class="content-grid">
+    <div class="content-block anim">
+      <div class="block-eyebrow">What they post</div>
+      <div class="block-title">The "DIY or Buy" Series. Radical Cost Transparency.</div>
+      <div class="block-body">Manager Serena Walker hosts a recurring video series that breaks down whether a drink is worth buying or making at home — including the <strong>exact ingredient cost.</strong> The Raspberry Danish Latte: $2.46 to make at home. $8 in-store. That level of honesty should scare a business owner. Instead it built massive trust. <em>"When you really break it down, you see how little profit we're actually making."</em> That vulnerability creates the emotional connection that turns viewers into evangelists. Drinks are dessert-inspired: sticky toffee pudding latte, dark and stormy matcha.</div>
+      <div class="tag-list"><span class="tag">DIY or Buy</span><span class="tag">Cost Transparency</span><span class="tag">Dessert-Inspired</span><span class="tag">Recipe Tutorials</span></div>
+    </div>
+    <div class="content-block anim">
+      <div class="block-eyebrow">Who they're talking to</div>
+      <div class="block-title">Everyone Who's Ever Wondered If It's Worth It.</div>
+      <div class="block-body">The DIY or Buy premise speaks to the <strong>exact tension most people feel</strong> about specialty coffee: is this $8 latte actually worth it? By answering honestly, Little Joy captures everyone who's ever had that thought — which is basically everyone. Their global following is 6× the population of their entire town. The content resonates across borders because the feeling — wanting something beautiful, wondering if you can justify it — is <strong>universal.</strong></div>
+      <div class="tag-list"><span class="tag">Value-Conscious</span><span class="tag">Home Brewers</span><span class="tag">Small Biz Community</span><span class="tag">Global Specialty</span></div>
+    </div>
+    <div class="content-block anim">
+      <div class="block-eyebrow">The infrastructure</div>
+      <div class="block-title">No Budget. A Phone. A Manager. A Philosophy.</div>
+      <div class="block-body">No agency. No paid influencers. No ad spend. Serena films on the café floor during shifts. The <strong>Raspberry Danish activation</strong> was spontaneous: when fans around the world messaged saying they couldn't get the drink, the team gave away the recipe to any independent café that wanted it — "not you, Starbucks." This created a global <strong>secondary distribution network of 480+ cafés,</strong> each becoming an ambassador. The world map of participating shops received 3.3M views. One decision. Zero dollars. A global media campaign.</div>
+      <div class="tag-list"><span class="tag">Zero Budget</span><span class="tag">Community Decision</span><span class="tag">Anti-Gatekeeping</span><span class="tag">Network Effects</span></div>
+    </div>
+    <div class="content-block anim">
+      <div class="block-eyebrow">Digital vs Organic vs Events</div>
+      <div class="block-title">100% Organic. Community as the Event.</div>
+      <div class="block-body">No events. No influencer budget. The "event" was the recipe giveaway — which activated 480 cafés who each held their own mini-launch. People drove <strong>two hours</strong> to the original location. CNN, The Guardian, Today.com covered the story at zero PR cost. The earned media flywheel started with one honest video. Owner Cody Larson's philosophy: <strong>"If all independent shops do better, we all do better."</strong> That ethos became the story media outlets couldn't resist.</div>
+      <div class="tag-list"><span class="tag">100% Organic</span><span class="tag">Earned Media</span><span class="tag">Community Ethos</span><span class="tag">Global Ripple</span></div>
+    </div>
+  </div>
+
+  <div class="insight-block anim">
+    <div class="il"></div>
+    <div>
+      <div class="insight-text">"We're inviting any coffee shop to steal this drink and put it on their own menu. Not you, Starbucks."</div>
+      <div class="insight-source">Serena Walker · Manager &amp; social media host, Little Joy Coffee · March 2026</div>
+    </div>
+  </div>
+
+  <div class="content-grid">
+    <div class="content-block anim">
+      <div class="block-eyebrow">Platform strategy</div>
+      <div class="block-title">Instagram-First. Explosive Organic Crossover.</div>
+      <div class="block-body"><strong>Instagram</strong> is the home: 139K followers, recipe posts, drink photography, community tags. The Raspberry Danish Latte step-by-step post alone hit <strong>2M views.</strong> Virality spread to TikTok, Reddit, food blogs, and international press organically — not through platform management, but through content quality. A 2M-view Instagram post that spawned CNN coverage is the most efficient marketing spend imaginable: $0.</div>
+      <div style="margin-top:18px">
+        <div class="cbar-label"><span>Instagram</span><span>Primary platform</span></div>
+        <div class="cbar-track"><div class="cbar-fill" style="width:88%"></div></div>
+        <div class="cbar-label"><span>Earned Press</span><span>CNN, Guardian, Today</span></div>
+        <div class="cbar-track"><div class="cbar-fill" style="width:95%"></div></div>
+        <div class="cbar-label"><span>Network (480 cafés)</span><span>Organic amplification</span></div>
+        <div class="cbar-track"><div class="cbar-fill" style="width:100%"></div></div>
+      </div>
+    </div>
+    <div class="content-block anim">
+      <div class="block-eyebrow">Why it works</div>
+      <div class="block-title">Generosity as the Algorithm.</div>
+      <div class="block-body">Little Joy cracked something most strategists miss: <strong>abundance thinking at scale.</strong> The instinct to protect a recipe — understandable, and wrong. By giving it away, they made the drink famous. By making the drink famous, they made themselves famous. By making themselves famous, people drove two hours. The viral map is a <strong>trust signal broadcast to 3.3M people</strong> that this brand operates differently. In 2026, that difference is the product.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PLAYBOOK ===== -->
+<div class="panel" id="panel-playbook">
+  <div class="brand-header anim">
+    <div>
+      <div class="brand-num">Synthesis · What Actually Works</div>
+      <div class="brand-title">The Independent Café<br>Social Playbook</div>
+      <div class="brand-tagline">Six cross-cutting lessons from three wildly different brands — each of which found a completely different path to the same result: deep, loyal, commercially meaningful communities.</div>
+    </div>
+    <div class="brand-badges"><div class="badge">Applied Research</div></div>
+  </div>
+
+  <div class="playbook-grid">
+    <div class="playbook-item anim">
+      <div class="playbook-num">01</div>
+      <div class="playbook-title">Give Away the Kitchen</div>
+      <div class="playbook-body"><strong>Little Joy and Onyx both share how they make things.</strong> One gives away entire recipes to competitors. The other publishes championship routines and exact brew ratios. The counterintuitive logic: transparency creates desire. Showing people how something is made doesn't reduce the magic — it deepens it. No one actually wants to do the work. The recipe becomes a beacon. The skill becomes the justification for the price.</div>
+      <div class="tag-list"><span class="tag">Onyx · Little Joy</span></div>
+    </div>
+    <div class="playbook-item anim">
+      <div class="playbook-num">02</div>
+      <div class="playbook-title">Make the Person the Face. Not the Brand.</div>
+      <div class="playbook-body"><strong>Serena Walker at Little Joy. Morgan Eckroth at Onyx.</strong> Neither is a "brand ambassador" — both are real people doing real jobs on camera. Audiences follow people, not logos. When a human face carries the story, the parasocial connection runs deeper. Morgan's audience followed her World Championship journey like a sports season. That's earned loyalty no ad buy replicates.</div>
+      <div class="tag-list"><span class="tag">Onyx · Little Joy</span></div>
+    </div>
+    <div class="playbook-item anim">
+      <div class="playbook-num">03</div>
+      <div class="playbook-title">Engineer the Shareable Object</div>
+      <div class="playbook-body"><strong>Blank Street's matcha green cup is the shareable object.</strong> Little Joy's raspberry Danish latte is the shareable object. Every drink, every seasonal special should be designed to make someone want to photograph it. The product is the media. 62% of consumers check a brand's social before visiting. The drink your customer photographed last week is your best ad.</div>
+      <div class="tag-list"><span class="tag">Blank Street · Little Joy</span></div>
+    </div>
+    <div class="playbook-item anim">
+      <div class="playbook-num">04</div>
+      <div class="playbook-title">Hyperlocal × Global Is Not a Contradiction</div>
+      <div class="playbook-body"><strong>Blank Street activates local creators for each neighbourhood opening.</strong> Little Joy's global recipe map pins every city where the drink lives. Both show that the most powerful social strategy starts with a specific, real community — and radiates outward. Being deeply local gives you authenticity. The internet handles global amplification. Trying to be global first is the mistake.</div>
+      <div class="tag-list"><span class="tag">Blank Street · Little Joy</span></div>
+    </div>
+    <div class="playbook-item anim">
+      <div class="playbook-num">05</div>
+      <div class="playbook-title">Build Owned Channels Alongside Rented Ones</div>
+      <div class="playbook-body"><strong>Blank Street's Regulars membership</strong> is the clearest example: 5,000 paying members, 4,000 on a waitlist, visiting 6× per week. That's an owned audience — not subject to algorithm changes or platform shifts. Onyx's email list builds the same muscle. Social media is the top of funnel. The owned channel is the asset. Rented reach is borrowed. Owned reach compounds.</div>
+      <div class="tag-list"><span class="tag">Blank Street · Onyx</span></div>
+    </div>
+    <div class="playbook-item anim">
+      <div class="playbook-num">06</div>
+      <div class="playbook-title">IRL Is Still the Best Content Studio</div>
+      <div class="playbook-body">All three brands prove the best content comes from physical reality: <strong>a café floor, a competition stage, a coffee cart in Brooklyn.</strong> Blank Street stages celebrity moments in actual stores. Morgan films at the bar. Serena films during service. The camera is not separate from the work — it's embedded in it. The most shareable content for a café will almost always come from inside the four walls.</div>
+      <div class="tag-list"><span class="tag">All Three Brands</span></div>
+    </div>
+  </div>
+
+  <div class="verdict-row">
+    <div class="verdict-cell anim">
+      <div class="verdict-label">Best model for a small indie café</div>
+      <div class="verdict-score">Little Joy</div>
+      <div class="verdict-desc">Zero budget, maximum trust. The DIY or Buy series is replicable anywhere. The generosity strategy builds community faster than any ad campaign.</div>
+    </div>
+    <div class="verdict-cell anim">
+      <div class="verdict-label">Best model for a brand with growth ambition</div>
+      <div class="verdict-score">Blank Street</div>
+      <div class="verdict-desc">The celebrity × micro-influencer stack plus owned loyalty layer is the blueprint for scaling a café brand into a lifestyle company.</div>
+    </div>
+    <div class="verdict-cell anim">
+      <div class="verdict-label">Best model for a premium / specialty brand</div>
+      <div class="verdict-score">Onyx</div>
+      <div class="verdict-desc">Hiring craft expertise as content is the long game. Takes years to build, almost impossible to imitate, and compounds infinitely as reputation grows.</div>
+    </div>
+  </div>
+</div>
+
+<div class="footer-note">
+  <span>Research conducted April 2026 · Sources: CNN, The Guardian, Fresh Cup, Barista Magazine, Inside Retail, Digital Voices, CNBC, Tubefilter, Today.com, Minnesota Monthly · For internal Alchemy ArtHouse use only</span>
+  <span class="footer-glyph">✦</span>
+</div>
+
+<script>
+function show(name, tab) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  tab.classList.add('active');
+  // Scroll tab into view in the tab bar
+  tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  // On mobile, scroll page to just below the tab bar
+  if (window.innerWidth <= 640) {
+    const tabBar = document.querySelector('.tab-bar');
+    const offset = tabBar.getBoundingClientRect().bottom + window.scrollY;
+    window.scrollTo({ top: offset, behavior: 'smooth' });
+  }
+  let delay = 0;
+  document.querySelectorAll('#panel-' + name + ' .anim').forEach(el => {
+    el.style.animationDelay = (delay * 0.04) + 's';
+    delay++;
+  });
+}
+let d = 0;
+document.querySelectorAll('.panel.active .anim').forEach(el => {
+  el.style.animationDelay = (d * 0.04) + 's';
+  d++;
+});
+</script>
+</body>
+</html>
